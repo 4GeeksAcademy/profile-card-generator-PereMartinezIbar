@@ -23,16 +23,11 @@ import "../style/index.css";
     }
  */
 
-function naming(variables) {
-  if (variables.name && variables.lastName) {
-    return `<h1>${variables.name}${variables.lastName}</h1>`;
-  } else if (variables.name && !variables.lastName) {
-    return `<h1>${variables.name}</h1>`;
-  } else if (!variables.name && variables.lastName) {
-    return `<h1>${variables.lastName}</h1>`;
-  } else {
-    return `<h1>Name</h1>`;
-  }
+function generateNameHeader(variables) {
+  const { name = "", lastName = "" } = variables;
+  const fullName =
+    name && lastName ? `${name} ${lastName}` : name || lastName || "Name";
+  return `<h1>${fullName}</h1>`;
 }
 
 function render(variables = {}) {
@@ -46,7 +41,7 @@ function render(variables = {}) {
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          ${naming(variables)}
+          ${generateNameHeader(variables)}
           <h2>${variables.role}</h2>
           <h3>${variables.city}, ${variables.country}</h3>
           <ul class="${variables.socialMediaPosition}">
